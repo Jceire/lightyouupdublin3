@@ -37,6 +37,8 @@
 
 
 
+
+
     <div class="mynavbar">
 
       <nav class="navbar container navbar-expand-lg navbar-dark">
@@ -54,7 +56,7 @@
                  <a class="nav-link" href="index.html">HOME</a>
              </li>
              <li class="nav-item">
-                 <a class="nav-link" href="booking.html">BOOKING</a>
+                 <a class="nav-link" href="#contactform">BOOKING</a>
              </li>
 
          </ul>
@@ -78,7 +80,7 @@
      <h1>WE HIRE OUT AMAZING GIANT LED BIRTHDAY LIGHTS</h1> <br>
 
   <div class="button">
-    <a href="booking.html">
+    <a href="#contactform">
       <button type="button" class="btn btn-outline-light">Book Now</button>
     </a>
   </div>
@@ -96,7 +98,7 @@
     <div class="text-wrapper">
      <h1>WE DELIVER ALL OVER DUBLIN AND SURROUNDING AREAS</h1> <br>
   <div class="button">
-    <a href="booking.html">
+    <a href="#contactform">
       <button type="button" class="btn btn-outline-light">Book Now</button>
     </a>
   </div>
@@ -105,6 +107,94 @@
 </section>
 
 
+<section id="contactform">
+
+  <div class="container">
+          <div>
+            <!-- form -->
+            <form method="post" action="form_action.php">
+              <!-- name -->
+              <div class="row">
+                <!-- first name -->
+                <div class="col col-sm-6">
+                  <label for="email">First Name</label>
+                  <input
+                    type="text"
+                    id="first_name"
+                    name="first_name"
+                    class="form-control"
+                    placeholder="First Name"
+                  />
+                </div>
+                <!-- last name -->
+                <div class="col col-sm-6">
+                  <label for="last_name">Last Name</label>
+                  <input
+                    type="text"
+                    id="last_name"
+                    name="last_name"
+                    class="form-control"
+                    placeholder="Last Name"
+                  />
+                </div>
+              </div>
+              <!-- email -->
+              <div class="form-group">
+                <label for="email">Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  name="email"
+                  placeholder="name@example.com"
+                />
+              </div>
+              <!-- PHONE -->
+              <div class="form-group">
+                <label for="phone">Contact Phone</label>
+                <input
+                  type="number"
+                  class="form-control"
+                  id="phone"
+                  name="phone"
+                  placeholder="085 555 5555"
+                />
+              </div>
+              <!-- Event Type -->
+              <div class="form-group">
+                <label for="messgae">Your Message</label>
+                <textarea
+                  type="text"
+                  class="form-control"
+                  id="message"
+                  name="message"
+                  placeholder="Write your message here!"
+                > Enter your message here! </textarea>
+              </div>
+
+             
+
+              <!-- <div
+                class="g-recaptcha"
+                data-sitekey="6LdAep4UAAAAADyEtzJG0Z9f0yt7szK8O4ZZXbYt"
+              ></div> -->
+
+              <!-- submit -->
+              <button
+                id="submit"
+                name="submit"
+                type="submit"
+                class="btn btn-light float-right"
+              >
+                Submit
+              </button>
+            </form>
+            <!-- form /end -->
+          </div>
+        </div>
+
+
+</section>
 
 
 

@@ -1,28 +1,99 @@
 <?php
-$name = $_POST['name'];
-$visitor_email = $_POST['email'];
-$message = $_POST['message'];
+
+if(isset($_POST['submit'])) {
+
+    session_start();
+ 
+    // Form
+    $email_to = "justincullinan40@gmail.com";
+    $email_subject = "Booking Enquiry";
+    $error_message = "";
+    // reCaptcha
+    // $reCapSecretKey = "6LdAep4UAAAAAMqOHcakM6NJIY6ZpxxT13kdqrwF";
+    // $reCapResponse = $_POST['g-recaptcha-response'];
+    // $userIp = $_SERVER['REMOTE_ADDR'];
+    // reCaptcha response
+    // $ver_url = "https://www.google.com/recaptcha/api/siteverify?secret=$reCapSecretKey&response=$reCapResponse&remoteip$userIp";
+    // $googleResponse = file_get_contents($ver_url);
+    // $reCapSuccess = json_decode($googleResponse);
+    // if (!$reCapSuccess->success) {
+    //     $error_message .= 'Please make sure to check the reCaptcha box to verify form<br />';
+    // }
+
+ 
+    function died($error) {
+        // your error code can go here
+        // echo "We are very sorry, but there were error(s) found with the form you submitted. ";
+        // echo "These errors appear below.<br /><br />";
+        // echo $error."<br /><br />";
+        // echo "Please go back and fix these errors.<br /><br />";
+        // die();
+        $_SESSION['error'] = $error;
+        header("Location: index.php#bookings");
+        exit;
+    }
+ 
+    // if empty
+    if(!isset($_POST['first_name']) ||
+        !isset($_POST['last_name']) ||
+        !isset($_POST['email']) ||
+        !isset($_POST['phone']) || 
+        !isset($_POST['message'])) {
+        $error_message .= 'Please fill in all form fields.<br />';       
+    }
+ 
+    $first_name = $_POST['first_name']; // required
+    $last_name = $_POST['last_name']; // required
+    $email_from = $_POST['email']; // required
+    $phone = $_POST['phone']; // required
+    $message = $_POST['message']; // required
+    
+ 
+    // expected format
+    $email_exp = '/^[A-Za-z0-9._%-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}$/';
+    $string_exp = "/^[A-Za-z .'-]+$/"; 
+ 
+    // compare emails
+    if(!preg_match($email_exp,$email_from)) {
+        $error_message .= 'The Email Address you entered does not appear to be valid.<br />';
+    }
+    // compare first name
+    if(!preg_match($string_exp,$first_name)) {
+        $error_message .= 'The First Name you entered does not appear to be valid.<br />';
+    }
+    // compare first name
+    if(!preg_match($string_exp,$last_name)) {
+        $error_message .= 'The Last Name you entered does not appear to be valid.<br />';
+    }
+    // check to see if error messages there
+    if(strlen($error_message) > 0) {
+        died($error_message);
+    }
+ 
+    $email_message = "Form details below.\n\n";
+ 
+    // function to remove unwanted strings
+    function clean_string($string) {
+      $bad = array("content-type","bcc:","to:","cc:","href");
+      return str_replace($bad,"",$string);
+    }
+
+    // clean unwanted strings from form input
+    $email_message .= "First Name: ".clean_string($first_name)."\n";
+    $email_message .= "Last Name: ".clean_string($last_name)."\n";
+    $email_message .= "Email: ".clean_string($email_from)."\n";
+    $email_message .= "Phone: ".clean_string($phone)."\n";
+    $email_message .= "Message: ".clean_string($message)."\n";
+ 
+    // create email headers
+    $headers = 'From: '.$email_from."\r\n".
+    'Reply-To: '.$email_from."\r\n" .
+    'X-Mailer: PHP/' . phpversion();
+    @mail($email_to, $email_subject, $email_message, $headers);  
 
 
-$email_from = 'justincullinan40@gmail.com';
-
-$email_subject = "New Form Submission";
-
-$email_body = "User Name: $name.\n".
-"User Email: $visitor_email.\n".
-"User Message: $message.\n";
-
-
-$to = "justincullinan40gmail.com";
-
-$headers = "From: $email_from \r\n";
-
-$headers .= "Reply To: $visitor_email \r\n";
-
-mail($to,email_subject,$email_body,$headers);
-
-header("Location: Website Name");
-
-
-
+   
+    header("Location: index.php?mailsend");
+ 
+}
 ?>
